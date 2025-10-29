@@ -32,14 +32,4 @@ class KalmanFilter:
     def update(self, z: np.ndarray, H: np.ndarray, R: np.ndarray) -> None:
         H = ensure_row_observation(H)
         R = as_float64(R)
-        z = as_float64(z).reshape(-1, 1)
-        
-        # 计算卡尔曼增益 K
-        S = H @ self.P @ H.T + R
-        K = self.P @ H.T @ np.linalg.inv(S)
-        
-        # 更新状态估计
-        self.x = self.x + K @ (z - H @ self.x)
-        
-        # 更新协方差
-        self.P = cov_update(self.P, K, H, R)
+        self.P = cov_update(self.P, H, R)
