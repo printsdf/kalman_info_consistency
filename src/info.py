@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from kalman_info_consistency.src.linalg_utils import (
+from .linalg_utils import (
     as_float64,
     ensure_row_observation,
 )

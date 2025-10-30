@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from kalman_info_consistency.src.covariance import cov_update
-from kalman_info_consistency.src.linalg_utils import as_float64, ensure_row_observation
+from .covariance import cov_update
+from .linalg_utils import as_float64, ensure_row_observation
 
 
 class KalmanFilter:
@@ -32,4 +32,14 @@ class KalmanFilter:
     def update(self, z: np.ndarray, H: np.ndarray, R: np.ndarray) -> None:
         H = ensure_row_observation(H)
         R = as_float64(R)
-        self.P = cov_update(self.P, H, R)
+        
+        # 计算卡尔曼增益
+        S = H @ self.P @ H.T + R
+        K = self.P @ H.T @ np.linalg.inv(S)
+        
+        # 更新状态估计
+        innovation = z - H @ self.x
+        self.x = self.x + K @ innovation
+        
+        # 更新协方差矩阵
+        self.P = cov_update(self.P, K, H, R)
