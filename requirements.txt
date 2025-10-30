@@ -1,3 +1,5 @@
 numpy
 pytest
+ruamel.yaml
+matplotlib
 

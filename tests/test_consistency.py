@@ -87,7 +87,7 @@ def test_random_spd_triplet(seed):
         P = random_spd(rng, n=2, scale=0.5, eps=1e-6)
         h = rng.normal(size=(2,))
         H = h.reshape(1, 2)
-        R_val = float(H @ P @ H.T) 
+        R_val = float((H @ P @ H.T).item()) 
         R = np.array([[R_val + 1e-6]], dtype=np.float64)
 
         K = k_gain(P, H, R)

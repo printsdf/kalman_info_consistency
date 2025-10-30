@@ -1,0 +1,37 @@
+# 信息一致性评估与告警配置文件
+
+# 阈值配置
+thresholds:
+  nees:
+    upper: 10.0  # NEES 上阈值
+    lower: 0.1   # NEES 下阈值
+  nis:
+    upper: 10.0  # NIS 上阈值
+    lower: 0.1   # NIS 下阈值
+  condition_number:
+    upper: 1e6  # 条件数上阈值
+
+# 显著性水平
+significance_level: 0.05
+
+# 滑动窗口大小
+sliding_window: 50
+
+# 冷启动样本数
+cold_start: 100
+
+# 可视化配置
+visualization:
+  figure_size: [12, 8]
+  dpi: 150
+  colors:
+    nees: '#2E86AB'
+    nis: '#A23B72'
+    threshold: '#F18F01'
+    anomaly: '#C73E1D'
+
+# 报告配置
+report:
+  title: '卡尔曼滤波一致性评估报告'
+  save_path: 'reports/consistency_report'
+  format: ['markdown', 'html']
